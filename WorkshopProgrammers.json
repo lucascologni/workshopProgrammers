@@ -1,0 +1,181 @@
+{
+  "luis_schema_version": "3.0.0",
+  "versionId": "0.1",
+  "name": "WorkshopProgrammers",
+  "desc": "",
+  "culture": "pt-br",
+  "intents": [
+    {
+      "name": "Forecast"
+    },
+    {
+      "name": "Greetings"
+    },
+    {
+      "name": "None"
+    }
+  ],
+  "entities": [
+    {
+      "name": "City",
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [
+    {
+      "pattern": "previsão para {City}",
+      "intent": "Forecast"
+    },
+    {
+      "pattern": "previsão em {City}",
+      "intent": "Forecast"
+    },
+    {
+      "pattern": "vai chover em {City}?",
+      "intent": "Forecast"
+    },
+    {
+      "pattern": "tempo para {City}",
+      "intent": "Forecast"
+    },
+    {
+      "pattern": "previsão do tempo para {City}",
+      "intent": "Forecast"
+    },
+    {
+      "pattern": "qual a previsão do tempo para {City}?",
+      "intent": "Forecast"
+    },
+    {
+      "pattern": "como está o tempo em {City}",
+      "intent": "Forecast"
+    }
+  ],
+  "utterances": [
+    {
+      "text": "boa noite",
+      "intent": "Greetings",
+      "entities": []
+    },
+    {
+      "text": "boa tarde",
+      "intent": "Greetings",
+      "entities": []
+    },
+    {
+      "text": "bom dia",
+      "intent": "Greetings",
+      "entities": []
+    },
+    {
+      "text": "como está a temperatura em guarulhos?",
+      "intent": "Forecast",
+      "entities": [
+        {
+          "entity": "City",
+          "startPos": 27,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "como está o tempo em são paulo?",
+      "intent": "Forecast",
+      "entities": [
+        {
+          "entity": "City",
+          "startPos": 21,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "oi",
+      "intent": "Greetings",
+      "entities": []
+    },
+    {
+      "text": "olá",
+      "intent": "Greetings",
+      "entities": []
+    },
+    {
+      "text": "previsão do tempo",
+      "intent": "Forecast",
+      "entities": []
+    },
+    {
+      "text": "previsão do tempo para araraquara",
+      "intent": "Forecast",
+      "entities": [
+        {
+          "entity": "City",
+          "startPos": 23,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "previsão em araraquara",
+      "intent": "Forecast",
+      "entities": [
+        {
+          "entity": "City",
+          "startPos": 12,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "previsão em são paulo",
+      "intent": "Forecast",
+      "entities": [
+        {
+          "entity": "City",
+          "startPos": 12,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "previsão para são sebastião",
+      "intent": "Forecast",
+      "entities": [
+        {
+          "entity": "City",
+          "startPos": 14,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "qual a previsão do tempo para são paulo?",
+      "intent": "Forecast",
+      "entities": [
+        {
+          "entity": "City",
+          "startPos": 30,
+          "endPos": 38
+        }
+      ]
+    },
+    {
+      "text": "vai chover em campinas?",
+      "intent": "Forecast",
+      "entities": [
+        {
+          "entity": "City",
+          "startPos": 14,
+          "endPos": 21
+        }
+      ]
+    }
+  ]
+}

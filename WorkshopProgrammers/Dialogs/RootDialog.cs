@@ -9,7 +9,7 @@ using Microsoft.Bot.Builder.Luis.Models;
 namespace WorkshopProgrammers.Dialogs
 {
 
-    [LuisModel("b5b256d4-b329-4f2b-96ed-9e010f4b8564", "3280486bf1014878998d485e371a799e")]
+    [LuisModel("ModelID", "Key")]
     [Serializable]
     public class RootDialog : LuisDialog<object>
     {
