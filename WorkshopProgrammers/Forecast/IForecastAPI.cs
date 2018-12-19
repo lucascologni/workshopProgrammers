@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace WorkshopProgrammers.ForecastAPI
+namespace WorkshopProgrammers.Forecast
 {
     public interface IForecastAPI
     {

@@ -8,12 +8,10 @@ using Microsoft.Bot.Builder.Luis.Models;
 
 namespace WorkshopProgrammers.Dialogs
 {
-
-    [LuisModel("ModelID", "Key")]
+    [LuisModel("8b68a847-983e-4e94-b3bc-7f5fd1c1a4d2", "9d4608a23212416397bf1101691af52b")]
     [Serializable]
     public class RootDialog : LuisDialog<object>
     {
-
         private const string CITY_ENTITY = "City";
 
         [LuisIntent("")]
@@ -28,28 +26,26 @@ namespace WorkshopProgrammers.Dialogs
         public async Task Forecast(IDialogContext context, LuisResult result)
         {
             //Verifica se há alguma entidade do tipo "City" na mensagem.
-            if (result.Entities.Any(x=>x.Type == CITY_ENTITY))
+            if (result.Entities.Any(x => x.Type == CITY_ENTITY))
 
                 //Chama o diálogo "ForecastDialog", encaminhando a entidade do tipo "City".
                 //Configura "ResumeAfterForecast" como callback após o término do diálogo "ForecastDialog".
                 context.Call(new ForecastDialog(result.Entities.First().Entity), ResumeAfterForecast);
-
             else
             {
                 //Envia a mensagem para a conversa.
-                await context.PostAsync("Qual a ciade?");
+                await context.PostAsync("Qual a cidade?");
 
                 //Aguarda uma nova mensagem do usuário.
                 context.Wait(GetCityAnswer);
             }
         }
 
-
         [LuisIntent("Greetings")]
         public async Task Greetings(IDialogContext context, LuisResult result)
         {
             //Envia a mensagem para a conversa.
-            await context.PostAsync("Olá!");
+            await context.PostAsync("Olá! Sou o novo Bot de previsão do tempo. Em que posso lhe ajudar?");
         }
 
         private async Task GetCityAnswer(IDialogContext context, IAwaitable<object> result)
@@ -67,6 +63,5 @@ namespace WorkshopProgrammers.Dialogs
             //Aguarda uma nova mensagem do usuário.
             context.Wait(MessageReceived);
         }
-
     }
 }

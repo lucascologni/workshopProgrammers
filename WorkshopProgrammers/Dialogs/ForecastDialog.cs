@@ -1,55 +1,54 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
+using System.Collections.Generic;
+using AdaptiveCards;
+using WorkshopProgrammers.Forecast;
+using WorkshopProgrammers.Dialogs.AdaptiveCards;
 
 namespace WorkshopProgrammers.Dialogs
 {
     public class ForecastDialog : IDialog
     {
-        private readonly ForecastAPI.IForecastAPI Forecast;
-        private readonly string entity;
+        private readonly IForecastAPI forecastAPI;
+        private readonly string _entity;
 
         public ForecastDialog(string entity)
         {
-            this.entity = entity;
-            Forecast = new ForecastAPI.ForecastAPI();
+            _entity = entity;
+            forecastAPI = new ForecastAPI();
         }
 
         public async Task StartAsync(IDialogContext context)
         {
             //Coleta previsões do tempo.
-            var results = await Forecast.GetForecast(entity);
+            var results = await forecastAPI.GetForecast(_entity);
+
             if (results != null)
             {
                 //Cria uma nova Activity.
                 var message = context.MakeMessage();
-                
-                //Cultura pt-BR para traduzirmos o nome dos dias da semana.
-                var culture = new System.Globalization.CultureInfo("pt-BR");
+
+                Attachment attachment = new Attachment();
+                attachment.ContentType = AdaptiveCard.ContentType;
 
                 foreach (var item in results)
                 {
-                    //Insere cards interativos como anexos na mensagem.
-                    message.Attachments.Add(
-                        new ThumbnailCard()
-                        {
-                            Title = culture.DateTimeFormat.GetDayName(item.dia.DayOfWeek),
-                            Subtitle = item.dia.ToString("dd-MM-yyyy"),
-                            Text = $"Máxima: {item.maxima}\n" +
-                            $"Mínima: {item.minima}"
-                        }.ToAttachment());
-                }
+                    attachment.Content = new ForecastAdaptiveCard().GetAdaptiveCard(item);
+                    message.Attachments = new List<Attachment> { attachment };
 
-                //Envia a mensagem contendo os cards para o usuário.
-                await context.PostAsync(message);
+                    //Envia a mensagem contendo os cards para o usuário.
+                    await context.PostAsync(message);
+                }
 
                 //Finaliza o diálogo atual, retornando o controle para o RootDialog.
                 context.Done("");
             }
+
             else
             {
                 //Envia mensagem para o usuário.
-                await context.PostAsync($"Não consegui encontrar nenhuma previsão para \"{entity}\".");
+                await context.PostAsync($"Não consegui encontrar nenhuma previsão para \"{_entity}\".");
 
                 //Finaliza o diálogo atual, retornando o controle para o RootDialog.
                 context.Done("");
